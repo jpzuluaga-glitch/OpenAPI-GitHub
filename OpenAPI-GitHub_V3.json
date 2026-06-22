@@ -1,0 +1,193 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "GitHub Repository API",
+    "version": "3.0.0",
+    "description": "API para explorar repositorios de GitHub: archivos, estructura, contenido y metadata"
+  },
+  "servers": [
+    {
+      "url": "https://api.github.com"
+    }
+  ],
+  "paths": {
+
+    "/repos/{owner}/{repo}": {
+      "get": {
+        "operationId": "get_repo_metadata",
+        "summary": "Get repository metadata",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Repository metadata retrieved successfully"
+          }
+        }
+      }
+    },
+
+    "/repos/{owner}/{repo}/contents": {
+      "get": {
+        "operationId": "get_repo_root",
+        "summary": "Get root contents of repository",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of files and directories in root"
+          }
+        }
+      }
+    },
+
+    "/repos/{owner}/{repo}/contents/{path}": {
+      "get": {
+        "operationId": "get_repo_contents",
+        "summary": "Get contents of a specific file or directory",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File or directory content retrieved"
+          }
+        }
+      }
+    },
+
+    "/repos/{owner}/{repo}/git/trees/{branch}": {
+      "get": {
+        "operationId": "get_repo_tree",
+        "summary": "Get full repository tree",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "branch",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "recursive",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full repository tree retrieved"
+          }
+        }
+      }
+    },
+
+    "/repos/{owner}/{repo}/branches": {
+      "get": {
+        "operationId": "get_branches",
+        "summary": "List repository branches",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of branches"
+          }
+        }
+      }
+    },
+
+    "/repos/{owner}/{repo}/commits": {
+      "get": {
+        "operationId": "get_commits",
+        "summary": "List commits of the repository",
+        "parameters": [
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of commits"
+          }
+        }
+      }
+    }
+
+  }
+}
