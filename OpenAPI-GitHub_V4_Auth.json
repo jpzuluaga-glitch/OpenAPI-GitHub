@@ -3,14 +3,13 @@
   "info": {
     "title": "GitHub Repository API",
     "version": "3.0.0",
-    "description": "API para explorar repositorios de GitHub: archivos, estructura, contenido y metadata"
+    "description": "API para explorar repositorios de GitHub: archivos, estructura y contenido"
   },
   "servers": [
     {
       "url": "https://api.github.com"
     }
   ],
-
   "components": {
     "securitySchemes": {
       "bearerAuth": {
@@ -19,14 +18,13 @@
       }
     }
   },
-
   "security": [
     {
       "bearerAuth": []
     }
   ],
-
   "paths": {
+
     "/repos/{owner}/{repo}": {
       "get": {
         "operationId": "get_repo_metadata",
@@ -37,65 +35,105 @@
           }
         ],
         "parameters": [
-          { "name": "owner", "in": "path", "required": true, "schema": { "type": "string" } },
-          { "name": "repo", "in": "path", "required": true, "schema": { "type": "string" } }
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
         ],
-        "responses": { "200": { "description": "Repository metadata retrieved successfully" } }
+        "responses": {
+          "200": {
+            "description": "Repository metadata"
+          }
+        }
       }
     },
 
     "/repos/{owner}/{repo}/contents": {
       "get": {
         "operationId": "get_repo_root",
-        "summary": "Get root contents",
+        "summary": "Get root contents of repository",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "parameters": [
-          { "name": "owner", "in": "path", "required": true },
-          { "name": "repo", "in": "path", "required": true }
+          {
+            "name": "owner",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "ref",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "Branch name (e.g., main, master)"
+          }
         ],
-        "responses": { "200": { "description": "Root content" } }
+        "responses": {
+          "200": {
+            "description": "List of root files and folders"
+          }
+        }
       }
     },
 
     "/repos/{owner}/{repo}/contents/{path}": {
       "get": {
         "operationId": "get_repo_contents",
-        "summary": "Get file contents",
+        "summary": "Get file or directory contents",
         "security": [
           {
             "bearerAuth": []
           }
         ],
         "parameters": [
-          { "name": "owner", "in": "path", "required": true },
-          { "name": "repo", "in": "path", "required": true },
-          { "name": "path", "in": "path", "required": true }
-        ],
-        "responses": { "200": { "description": "File content" } }
-      }
-    },
-
-    "/repos/{owner}/{repo}/git/trees/{branch}": {
-      "get": {
-        "operationId": "get_repo_tree",
-        "summary": "Get repo tree",
-        "security": [
           {
-            "bearerAuth": []
+            "name": "owner",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "repo",
+            "in": "path",
+            "required": true
+          },
+          {
+            "name": "path",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "ref",
+            "in": "query",
+            "required": false,
+            "schema": { "type": "string" }
           }
         ],
-        "parameters": [
-          { "name": "owner", "in": "path", "required": true },
-          { "name": "repo", "in": "path", "required": true },
-          { "name": "branch", "in": "path", "required": true },
-          { "name": "recursive", "in": "query", "schema": { "type": "integer", "example": 1 } }
-        ],
-        "responses": { "200": { "description": "Tree content" } }
+        "responses": {
+          "200": {
+            "description": "File content or directory listing"
+          }
+        }
       }
     }
+
   }
 }
