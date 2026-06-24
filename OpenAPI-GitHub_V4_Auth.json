@@ -46,6 +46,14 @@
             "in": "path",
             "required": true,
             "schema": { "type": "string" }
+          },    
+          {
+              "name": "Authorization",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
           }
         ],
         "responses": {
@@ -84,6 +92,14 @@
             "required": false,
             "schema": { "type": "string" },
             "description": "Branch name (e.g., main, master)"
+          },
+          {
+              "name": "Authorization",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
           }
         ],
         "responses": {
@@ -125,6 +141,14 @@
             "in": "query",
             "required": false,
             "schema": { "type": "string" }
+          },
+          {
+              "name": "Authorization",
+              "in": "header",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
           }
         ],
         "responses": {
